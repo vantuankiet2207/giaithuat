@@ -259,4 +259,5 @@ class danhba
     {
         return "(" + id + "," + nhan + "," + sdt + "," + email + "," + fb + "," + sinhnhat + ","+ noio +".)";
     }
+    agerhaetharthtrhrah
 }
