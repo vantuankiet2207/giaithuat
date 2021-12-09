@@ -5,7 +5,9 @@ class program
 {
     static void Main(string[] args)
     {
-        Dictionary<string, danhba> danhb = new Dictionary<string, danhba>();
+       Dictionary<string, danhba> danhb = new Dictionary<string, danhba>();
+        Dictionary<string, danhba> thanthiet = new Dictionary<string, danhba>();
+        Dictionary<string, danhba> danhsachchan = new Dictionary<string, danhba>();
         
         danhb.Add("1", new danhba("1", "VTK", "0906889483", "hungsamgnuyen", "vantuankiet", "22/07/2002","TP HCM"));
         danhb.Add("2", new danhba("2", "VTT", "0909678860", "taolanhat2200", "vantuquyen", "2/1/2002", "TP HCM"));
@@ -36,6 +38,8 @@ class program
         {
             Console.WriteLine(kr.Value);
         }
+        inradanhba(danhb, danhsachchan, thanthiet);
+        catnhatkhanhhangthanthiet(danhb, ref thanthiet);
     }
     // tinh nang cho dic
     static void InTTtrungthuong(Dictionary<string, danhba> kiet, int sotrung)
@@ -112,6 +116,66 @@ class program
             Console.WriteLine("({0}) {1}", vitri(i, danhsachchan).getid(), vitri(i, danhsachchan));
         }
         kiet[t] = danhsachchan[t];
+    }
+    static void inradanhba(Dictionary<string, danhba> kiet, Dictionary<string, danhba> kiet1, Dictionary<string, danhba> kiet2)
+    {
+        Console.WriteLine("Lua chon danh sach can in ra: ");
+        Console.WriteLine("DANH SACH DANH BA TONG (1)");
+        Console.WriteLine("DANH SACH CHAN (2)");
+        Console.WriteLine("DANH SACH KHACH HANG THAN THIET (3)");
+        int tu = int.Parse(Console.ReadLine());
+        switch (tu)
+        {
+            case 1:
+                if (kiet.Count == 0)
+                {
+                    Console.WriteLine("khong co nguoi nao trong danh ba tong");
+                }
+                foreach (KeyValuePair<string, danhba> t in kiet)
+                {
+                    Console.WriteLine(t.Value);
+                }break;
+            case 2:
+                if (kiet1.Count == 0)
+                {
+                    Console.WriteLine("khong co nguoi nao trong danh sach chan");
+                }
+                foreach (KeyValuePair<string, danhba> t in kiet1)
+                {
+                    Console.WriteLine(t.Value);
+                }
+                break;
+            case 3:
+                if (kiet2.Count == 0)
+                {
+                    Console.WriteLine("khong co nguoi nao trong danh sach than thiet");
+                }
+                foreach (KeyValuePair<string, danhba> t in kiet2)
+                {
+                    Console.WriteLine(t.Value);
+                }
+                break;
+        }
+    }
+    static void catnhatkhanhhangthanthiet(Dictionary<string, danhba> danhb,ref Dictionary<string, danhba> kiet)
+    {
+        for (int i = 0; i < kiet.Count; i++)
+        {
+            Console.WriteLine("nguoi {0}: {1}, nhap ({2})", i + 1, vitri(i, kiet).getnhan(), i + 1);
+        }
+        Console.WriteLine("CAC MOC THAN THIET:");
+        Console.WriteLine("VANG (so tien trong tai khoan > 150000");
+        Console.WriteLine("BAC (so tien trong tai khoan > 100000");
+        Console.WriteLine("DONG (so tien trong tai khoan < 100000");
+        foreach(KeyValuePair<string, danhba> kt in danhb)
+        {
+            if(kt.Value.gettaikhoan() > 150000) kiet.Add(kt.Value.getid(), kt.Value);
+            else if (kt.Value.gettaikhoan() > 100000) kiet.Add(kt.Value.getid(), kt.Value);
+            else  kiet.Add(kt.Value.getid(), kt.Value);
+        }
+        Console.WriteLine("DA CAT NHAT THANHG CONG !");
+
+       
     }
     // 4 ham tim kiem
     static danhba vitri(int so, Dictionary<string, danhba> kiet)
