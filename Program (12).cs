@@ -5,6 +5,7 @@ class program
 {
     static void Main(string[] args)
     {
+        ưẻtyuytrtyuiuytrertyuiuytrertyuiuytrertyuiuytredrftgyhujkl
         Dictionary<string, danhba> danhb = new Dictionary<string, danhba>();
         
         danhb.Add("1", new danhba("1", "VTK", "0906889483", "hungsamgnuyen", "vantuankiet", "22/07/2002","TP HCM"));
