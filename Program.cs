@@ -20,7 +20,7 @@ class program
         danhb.Add("8", new danhba("8", "SAH", "0947265337", "anhhung24680@gmail.com", "anhhungrom", "28/3/2007", "QB", 10000000));
         danhb.Add("9", new danhba("9", "DHY", "0867265347", "quynh04@gmail.com", "hoangyen", "29/04/1998", "TG", 1700000));
         danhb.Add("10", new danhba("10", "TTH", "0927265367", "thanhhatang00@gmail.com", "tangthanhha", "13/08/2000", "TP HCM", 900000));
-        tim:
+    tim:
         Console.WriteLine("GIAO DIỆN");
         Console.WriteLine(">> SỰ KIỆN (1)");
         Console.WriteLine(">> CÔNG CỤ (2)");
@@ -73,7 +73,7 @@ class program
                     case 3:
                         Doitt(danhb); break;
                     case 4:
-                        timvaiso( danhb ); break;
+                        timvaiso(danhb); break;
                     case 5:
                         chan(ref danhb, ref danhsachchan); break;
                     case 6:
@@ -86,7 +86,7 @@ class program
                         }
                         break;
                     case 8:
-                        Naptien(ref danhb); break;    
+                        Naptien(ref danhb); break;
                     case 9:
                         Console.Write("Nhập SĐT: ");
                         string sdt = Console.ReadLine();
@@ -94,14 +94,14 @@ class program
                     case 10:
                         Console.WriteLine("Nhập SĐT cần xóa: ");
                         string dt = Console.ReadLine();
-                        xoa(danhb,dt);break;
+                        xoa(danhb, dt); break;
                     case 11:
                         Console.WriteLine("Nhập dữ liệu người cần thêm: ");
-                        AddStudent(danhb);break;
+                        AddStudent(danhb); break;
                 }
-                break;       
+                break;
             case 3:
-                
+
                 inradanhba(danhb, danhsachchan, danhsach); break;
         }
         goto tim;
@@ -128,79 +128,85 @@ class program
     // 2.Tìm kiếm trong danh bạ
     static void Timkiemdanhba(Dictionary<string, danhba> kiet)
     {
-        
+
         Console.WriteLine("Nhập địa điểm cần tìm kiếm");
         string val = Console.ReadLine();
         Console.WriteLine("Danh bạ người ở khu vực {0} là: ", val);
-         foreach(KeyValuePair<string, danhba> kt in kiet){
-             if(kt.Value.getnoio() == val){
-                 Console.WriteLine(kt.Value);
+        foreach (KeyValuePair<string, danhba> kt in kiet)
+        {
+            if (kt.Value.getnoio() == val)
+            {
+                Console.WriteLine(kt.Value);
             }
-         }
+        }
     }
     // 3. Đổi thông tin trong danh bạ
-    static void Doitt(Dictionary<string,danhba> kiet)
+    static void Doitt(Dictionary<string, danhba> kiet)
     {
         System.Console.WriteLine("Nhập số điện thoại cần đổi thông tin: ");
         string value = Console.ReadLine();
-        danhba kt = recusearch(kiet,0,value);
-        System.Console.WriteLine("Thông tin ban đầu của {0} là {1}" ,value,kt.ToString());
+        danhba kt = recusearch(kiet, 0, value);
+        System.Console.WriteLine("Thông tin ban đầu của {0} là {1}", value, kt.ToString());
         System.Console.WriteLine("Chọn thông tin cần chỉnh sửa: Tên(2); Email(4); Facebook(5); Ngày sinh(6); Nơi ở(7)");
         int x = int.Parse(Console.ReadLine());
-                switch(x){                  
-                    case 2:
-                    System.Console.Write("Tên mới: ");
-                    string val2 = Console.ReadLine();
-                    kiet[kt.getid()] = new danhba(kt.getid(), val2 ,kt.getsdt(),kt.getemail(),kt.getfb(), kt.getsinhnhat(),kt.getnoio(),kt.gettaikhoan());
-                    break;
-                    case 4:
-                    System.Console.Write("Email mới: ");
-                    string val4 = Console.ReadLine();
-                    kiet[kt.getid()] = new danhba(kt.getid(), kt.getnhan(),kt.getsdt(),val4,kt.getfb(), kt.getsinhnhat(),kt.getnoio(), kt.gettaikhoan());
-                    break;
-                    case 5:
-                    System.Console.Write("Facebook mới: ");
-                    string val5 = Console.ReadLine();
-                    kiet[kt.getid()] = new danhba(kt.getid(), kt.getnhan(),kt.getsdt(),kt.getemail(),val5, kt.getsinhnhat(),kt.getnoio(), kt.gettaikhoan());
-                    break;
-                    case 6:
-                    System.Console.Write("Ngày sinh mới: ");
-                    string val6 = Console.ReadLine();
-                    kiet[kt.getid()] = new danhba(kt.getid(), kt.getnhan(),kt.getsdt(),kt.getemail(),kt.getfb(), val6,kt.getnoio(), kt.gettaikhoan());
-                    break;
-                    case 7:
-                    System.Console.Write("Nơi ở mới: ");
-                    string val7 = Console.ReadLine();
-                    kiet[kt.getid()] = new danhba(kt.getid(), kt.getnhan(),kt.getsdt(),kt.getemail(),kt.getfb(), kt.getsinhnhat(), val7, kt.gettaikhoan());
-                    break;
-                }
-         System.Console.WriteLine("Thông tin mới là: " + kiet[kt.getid()].ToString());  
+        switch (x)
+        {
+            case 2:
+                System.Console.Write("Tên mới: ");
+                string val2 = Console.ReadLine();
+                kiet[kt.getid()] = new danhba(kt.getid(), val2, kt.getsdt(), kt.getemail(), kt.getfb(), kt.getsinhnhat(), kt.getnoio(), kt.gettaikhoan());
+                break;
+            case 4:
+                System.Console.Write("Email mới: ");
+                string val4 = Console.ReadLine();
+                kiet[kt.getid()] = new danhba(kt.getid(), kt.getnhan(), kt.getsdt(), val4, kt.getfb(), kt.getsinhnhat(), kt.getnoio(), kt.gettaikhoan());
+                break;
+            case 5:
+                System.Console.Write("Facebook mới: ");
+                string val5 = Console.ReadLine();
+                kiet[kt.getid()] = new danhba(kt.getid(), kt.getnhan(), kt.getsdt(), kt.getemail(), val5, kt.getsinhnhat(), kt.getnoio(), kt.gettaikhoan());
+                break;
+            case 6:
+                System.Console.Write("Ngày sinh mới: ");
+                string val6 = Console.ReadLine();
+                kiet[kt.getid()] = new danhba(kt.getid(), kt.getnhan(), kt.getsdt(), kt.getemail(), kt.getfb(), val6, kt.getnoio(), kt.gettaikhoan());
+                break;
+            case 7:
+                System.Console.Write("Nơi ở mới: ");
+                string val7 = Console.ReadLine();
+                kiet[kt.getid()] = new danhba(kt.getid(), kt.getnhan(), kt.getsdt(), kt.getemail(), kt.getfb(), kt.getsinhnhat(), val7, kt.gettaikhoan());
+                break;
+        }
+        System.Console.WriteLine("Thông tin mới là: " + kiet[kt.getid()].ToString());
     }
     // 4. Xác định mạng di động đang sử dụng
     static void Mangdt(string value)
     {
         List<List<string>> mang = new List<List<string>>();
         List<string> Viettel = new List<string>();
-        Viettel.Add("086");Viettel.Add("097");Viettel.Add("098");Viettel.Add("032");Viettel.Add("033");Viettel.Add("038");
-        Viettel.Add("096");Viettel.Add("034");Viettel.Add("035");Viettel.Add("036");Viettel.Add("037");Viettel.Add("039");
+        Viettel.Add("086"); Viettel.Add("097"); Viettel.Add("098"); Viettel.Add("032"); Viettel.Add("033"); Viettel.Add("038");
+        Viettel.Add("096"); Viettel.Add("034"); Viettel.Add("035"); Viettel.Add("036"); Viettel.Add("037"); Viettel.Add("039");
         mang.Add(Viettel);
         List<string> Vinaphone = new List<string>();
-        Vinaphone.Add("088");Vinaphone.Add("091");Vinaphone.Add("094");Vinaphone.Add("081");
-        Vinaphone.Add("082");Vinaphone.Add("083");Vinaphone.Add("084");
+        Vinaphone.Add("088"); Vinaphone.Add("091"); Vinaphone.Add("094"); Vinaphone.Add("081");
+        Vinaphone.Add("082"); Vinaphone.Add("083"); Vinaphone.Add("084");
         mang.Add(Vinaphone);
         List<string> Mobifone = new List<string>();
-        Mobifone.Add("089");Mobifone.Add("090");Mobifone.Add("093");Mobifone.Add("070");Mobifone.Add("076");
-        Mobifone.Add("077");Mobifone.Add("078");Mobifone.Add("079");
+        Mobifone.Add("089"); Mobifone.Add("090"); Mobifone.Add("093"); Mobifone.Add("070"); Mobifone.Add("076");
+        Mobifone.Add("077"); Mobifone.Add("078"); Mobifone.Add("079");
         mang.Add(Mobifone);
         List<string> Vietnamobile = new List<string>();
-        Vietnamobile.Add("092");Vietnamobile.Add("056");Vietnamobile.Add("058");
+        Vietnamobile.Add("092"); Vietnamobile.Add("056"); Vietnamobile.Add("058");
         mang.Add(Vietnamobile);
-        string value2 = value.Substring(0,3);
-        string [] nhamang = {"Viettel", "Vinaphone","Mobifone","Vietnamobile"};
-        for(int i = 0; i < mang.Count; i++){
-            for(int j = 0; j < mang[i].Count;j++){
-                if(value2 == mang[i][j]){
-                    Console.WriteLine("Thuộc mạng {0}" , nhamang[i]);
+        string value2 = value.Substring(0, 3);
+        string[] nhamang = { "Viettel", "Vinaphone", "Mobifone", "Vietnamobile" };
+        for (int i = 0; i < mang.Count; i++)
+        {
+            for (int j = 0; j < mang[i].Count; j++)
+            {
+                if (value2 == mang[i][j])
+                {
+                    Console.WriteLine("Thuộc mạng {0}", nhamang[i]);
                 }
             }
         }
@@ -208,8 +214,8 @@ class program
     // 5. In thông tin trúng thưởng
     static void InTTtrungthuong(Dictionary<string, danhba> kiet, int sotrung)
     {
-        Console.WriteLine("CON SỐ MAY MẮN CỦA CHƯƠNG TRÌNH LẦN NÀY LÀ : -{0}-",sotrung);
-        danhba g = binsearch(kiet,sotrung.ToString());
+        Console.WriteLine("CON SỐ MAY MẮN CỦA CHƯƠNG TRÌNH LẦN NÀY LÀ : -{0}-", sotrung);
+        danhba g = binsearch(kiet, sotrung.ToString());
         Console.WriteLine(" =======================================================");
         Console.WriteLine("Chúc mừng bạn {0} đã trúng giải!!!", g.getnhan());
         Console.WriteLine("Phần thưởng của bạn là một phần quà trị giá 100 triệu VND. Để có thể trao giải, chúng tôi cần bạn xác nhận thông tin của mình.");
@@ -225,17 +231,17 @@ class program
             Console.WriteLine("Email: {0}", g.getemail());
             Console.WriteLine("Facebook: {0}", g.getfb());
             Console.WriteLine("Ngày sinh: {0}", g.getsinhnhat());
-            Console.WriteLine("Nơi ở {0}",g.getnoio());
+            Console.WriteLine("Nơi ở {0}", g.getnoio());
             Console.WriteLine(" =======================================================");
             Console.WriteLine("Cảm ơn bạn đã tham gia chương trình của chúng tôi!");
         }
         else
         {
-            Console.WriteLine("Bạn hãy chỉnh sửa thông tin của mình: ");           
+            Console.WriteLine("Bạn hãy chỉnh sửa thông tin của mình: ");
             Doitt(kiet);
             danhba l = binsearch(kiet, sotrung.ToString());
             Console.WriteLine(" =======================================================");
-            Console.WriteLine("Tên: {0}",l.getnhan());
+            Console.WriteLine("Tên: {0}", l.getnhan());
             Console.WriteLine("Số điện thoại: {0}", l.getsdt());
             Console.WriteLine("Email: {0}", l.getemail());
             Console.WriteLine("Facebook: {0}", l.getfb());
@@ -252,39 +258,39 @@ class program
         Console.Write("Nhập 4 số đầu của số điện thoại: ");
         string so = Console.ReadLine();
         int dodai = so.Length;
-        for(int i = 0; i < kiet.Count; i++)
+        for (int i = 0; i < kiet.Count; i++)
         {
-            if(vitri(i,kiet).getsdt().Substring(0,dodai) == so)
+            if (vitri(i, kiet).getsdt().Substring(0, dodai) == so)
             {
                 Console.WriteLine("Danh sách các số có cùng {0} số {1} là: {2} ", dodai, so, vitri(i, kiet));
             }
         }
     }
     //7. Danh sách chặn
-    static void chan(ref Dictionary<string, danhba> kiet,ref Dictionary<string, danhba> danhsachchan)
+    static void chan(ref Dictionary<string, danhba> kiet, ref Dictionary<string, danhba> danhsachchan)
     {
-                            
-            for (int i = 0; i < kiet.Count; i++)
-            {
-                Console.WriteLine("Người {0}: {1}, Nhập ({2})", i + 1, vitri(i, kiet).getnhan(), i + 1);
-            }
-            Console.Write("Chọn người bạn muốn chặn: ");
-            int y = int.Parse(Console.ReadLine());
-            string v = seqsearch(kiet, (y - 1).ToString()).getid();              
-            danhsachchan.Add(vitri(Convert.ToInt32(v), kiet).getid(), vitri(Convert.ToInt32(v), kiet));
-            Console.WriteLine("Đã chặn thành công {0}", vitri(Convert.ToInt32(v), kiet).getnhan());
-            kiet.Remove(vitri(Convert.ToInt32(v), kiet).getid());    
+
+        for (int i = 0; i < kiet.Count; i++)
+        {
+            Console.WriteLine("Người {0}: {1}, Nhập ({2})", i + 1, vitri(i, kiet).getnhan(), i + 1);
+        }
+        Console.Write("Chọn người bạn muốn chặn: ");
+        int y = int.Parse(Console.ReadLine());
+        string v = seqsearch(kiet, (y - 1).ToString()).getid();
+        danhsachchan.Add(vitri(Convert.ToInt32(v), kiet).getid(), vitri(Convert.ToInt32(v), kiet));
+        Console.WriteLine("Đã chặn thành công {0}", vitri(Convert.ToInt32(v), kiet).getnhan());
+        kiet.Remove(vitri(Convert.ToInt32(v), kiet).getid());
     }
     //8. Gỡ chặn
     static void gochan(ref Dictionary<string, danhba> kiet, ref Dictionary<string, danhba> danhsachchan)
     {
         Console.WriteLine("Nhập tên người bạn muốn gỡ chặn: ");
         string t = Console.ReadLine();
-        danhba e =  seqsearch(danhsachchan, t);
-        Console.WriteLine("Người bạn muốn gỡ chặn: {0}",e.ToString());
+        danhba e = seqsearch(danhsachchan, t);
+        Console.WriteLine("Người bạn muốn gỡ chặn: {0}", e.ToString());
         Console.WriteLine("Mời bạn xác nhận việc gỡ chặn, ghi (GO) hoặc (KHONG):");
         string er = Console.ReadLine();
-        if(er == "GO")
+        if (er == "GO")
         {
             kiet[e.getid()] = danhsachchan[e.getid()];
             danhsachchan.Remove(e.getid());
@@ -299,7 +305,7 @@ class program
     {
         Console.WriteLine("Lựa chọn danh bạ bạn  cần in: ");
         Console.WriteLine("DANH BẠ (1)");
-        Console.WriteLine("DANH SÁCH CHẶN (2)");       
+        Console.WriteLine("DANH SÁCH CHẶN (2)");
         Console.WriteLine("DANH SÁCH QUAY SỐ NHANH (3)");
         Console.WriteLine("TÀI KHOẢN DANH BẠ (4)");
         int tu = int.Parse(Console.ReadLine());
@@ -310,18 +316,19 @@ class program
                 {
                     Console.WriteLine("Danh bạ trống");
                 }
-                Console.WriteLine("Danh bạ có {0} người",soluong(kiet));
+                Console.WriteLine("Danh bạ có {0} người", soluong(kiet));
                 Console.WriteLine("Danh bạ : ");
                 foreach (KeyValuePair<string, danhba> t in kiet)
                 {
                     Console.WriteLine(t.Value);
-                }break;
+                }
+                break;
             case 2:
                 if (kiet1.Count == 0)
                 {
                     Console.WriteLine("Danh sách chặn trống ");
                 }
-                Console.WriteLine("Danh sách chặn có {0} người",soluong(kiet1));
+                Console.WriteLine("Danh sách chặn có {0} người", soluong(kiet1));
                 Console.WriteLine("Danh sách chặn : ");
                 foreach (KeyValuePair<string, danhba> t in kiet1)
                 {
@@ -333,7 +340,7 @@ class program
                 {
                     Console.WriteLine("Danh sách quay số nhanh trống ");
                 }
-                Console.WriteLine("Danh sách quay số nhanh có {0} người",soluong(kiet2));
+                Console.WriteLine("Danh sách quay số nhanh có {0} người", soluong(kiet2));
                 Console.WriteLine("Danh sách quay số nhanh : ");
                 foreach (KeyValuePair<string, danhba> t in kiet2)
                 {
@@ -344,7 +351,7 @@ class program
                 Console.WriteLine("Tài khoản người dùng trong danh bạ: ");
                 foreach (KeyValuePair<string, danhba> wu in kiet)
                 {
-                    Console.WriteLine("{0} ({1}): {2}", wu.Value.getnhan(),wu.Value.getsdt() ,wu.Value.gettaikhoan());
+                    Console.WriteLine("{0} ({1}): {2}", wu.Value.getnhan(), wu.Value.getsdt(), wu.Value.gettaikhoan());
                 }
                 break;
         }
@@ -358,35 +365,37 @@ class program
         return dem;
     }
     // 11. Nạp tiền vào sđt
-    static void Naptien(ref Dictionary<string,danhba> kiet)
+    static void Naptien(ref Dictionary<string, danhba> kiet)
     {
         Console.WriteLine("SĐT của bạn là: ");
         string so = Console.ReadLine();
-        danhba k = seqsearch(kiet,so);
+        danhba k = seqsearch(kiet, so);
         Console.WriteLine("Bạn muốn nạp tiền hay nạp chuyển tiền từ tài khoản : Nạp tiền (1) ; Chuyển tiền (2)");
         int x = int.Parse(Console.ReadLine());
-        if(x == 1){
+        if (x == 1)
+        {
             Console.WriteLine("Nhập số tiền bạn cần nạp là: ");
             int tien = int.Parse(Console.ReadLine());
-            danhba qu = new danhba(k.getid(), k.getnhan(), k.getsdt(), k.getemail(), k.getfb(), k.getsinhnhat(),k.getnoio(), k.gettaikhoan() + tien);
+            danhba qu = new danhba(k.getid(), k.getnhan(), k.getsdt(), k.getemail(), k.getfb(), k.getsinhnhat(), k.getnoio(), k.gettaikhoan() + tien);
             kiet.Remove(k.getid());
-            kiet.Add(k.getid(),qu);
-            Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi được nạp." , so, qu.gettaikhoan());
+            kiet.Add(k.getid(), qu);
+            Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi được nạp.", so, qu.gettaikhoan());
         }
-        else{
+        else
+        {
             Console.WriteLine("Nhập số tiền bạn cần nạp là: ");
             int tien1 = int.Parse(Console.ReadLine());
             Console.WriteLine("Tài khoản bạn muỗn chuyển là: ");
             string sodt = Console.ReadLine();
             danhba h = seqsearch(kiet, sodt);
-            danhba q = new danhba(k.getid(), k.getnhan(), k.getsdt(), k.getemail(), k.getfb(), k.getsinhnhat(),k.getnoio(), k.gettaikhoan() - tien1);
+            danhba q = new danhba(k.getid(), k.getnhan(), k.getsdt(), k.getemail(), k.getfb(), k.getsinhnhat(), k.getnoio(), k.gettaikhoan() - tien1);
             kiet.Remove(k.getid());
-            kiet.Add(k.getid(),q);
-            danhba j = new danhba(h.getid(), h.getnhan(), h.getsdt(), h.getemail(), h.getfb(), h.getsinhnhat(),h.getnoio(), h.gettaikhoan() + tien1);
+            kiet.Add(k.getid(), q);
+            danhba j = new danhba(h.getid(), h.getnhan(), h.getsdt(), h.getemail(), h.getfb(), h.getsinhnhat(), h.getnoio(), h.gettaikhoan() + tien1);
             kiet.Remove(h.getid());
-            kiet.Add(h.getid(),j);
-            Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi chuyển tiền." , so, q.gettaikhoan());
-            Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi được nạp." , sodt, j.gettaikhoan());
+            kiet.Add(h.getid(), j);
+            Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi chuyển tiền.", so, q.gettaikhoan());
+            Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi được nạp.", sodt, j.gettaikhoan());
         }
     }
     //12. Chúc mừng sinh nhật
@@ -422,7 +431,7 @@ class program
                 int tuoi = 2021 - Convert.ToInt16(a[2]);
                 Console.WriteLine("CHÚC MỪNG SINH NHẬT LẦN THỨ {0} CỦA QUÝ KHÁCH {1}", tuoi, vitri(i, hien).getsdt());
             }
-            else Console.WriteLine("KHÔNG CÓ QUÝ KHÁCH SINH THÁNG {0}.",thang);
+            else Console.WriteLine("KHÔNG CÓ QUÝ KHÁCH SINH THÁNG {0}.", thang);
         }
     }
     //13. Mã OTP
@@ -439,62 +448,63 @@ class program
         {
             if (vitri(i, hien).getsdt() == sdt)
             {
-                Console.WriteLine("Mã OTP của quý khách là {0} , vui lòng không cung cấp OTP cho bất cứ ai ! ",otp);
+                Console.WriteLine("Mã OTP của quý khách là {0} , vui lòng không cung cấp OTP cho bất cứ ai ! ", otp);
             }
         }
     }
     //15.Xóa
-    static void xoa(Dictionary<string, danhba> kiet, string id){
+    static void xoa(Dictionary<string, danhba> kiet, string id)
+    {
         danhba sotim = seqsearch(kiet, id);
         kiet.Remove(sotim.getid());
     }
     //16. Add
-     static void AddStudent(Dictionary<string, danhba> kiet)
+    static void AddStudent(Dictionary<string, danhba> kiet)
+    {
+        string[] label = { "tên", "SĐT", "Email", "FB", "Ngày sinh", "Nơi ở" };
+        List<string> nhap = new List<string>();
+        for (int i = 0; i < label.Length; i++)
         {
-            string [] label = {"tên","SĐT","Email","FB","Ngày sinh","Nơi ở"};
-            List<string> nhap = new List<string>();
-            for (int i = 0; i < label.Length; i++)
+            Console.Write("Nhập {0}: ", label[i]);
+            nhap.Add(Console.ReadLine());
+        }
+        int id = soluong(kiet) + 1;
+        danhba tamthoi = new danhba(id.ToString(), nhap[0], nhap[1], nhap[2], nhap[3], nhap[4], nhap[5], 0);
+        foreach (KeyValuePair<string, danhba> at in kiet)
+        {
+            if (at.Value.getnhan().Equals(tamthoi.getnhan()))
             {
-                Console.Write("Nhập {0}: ", label[i]);
-                nhap.Add(Console.ReadLine());
+                Console.Write("Tên đã bị trùng, vui lòng nhập tên mới: ");
+                string tenmoi = Console.ReadLine();
+                kiet.Add(id.ToString(), new danhba(id.ToString(), tenmoi, nhap[1], nhap[2], nhap[3], nhap[4], nhap[5], 0));
             }
-            int id = soluong(kiet) + 1;
-            danhba tamthoi = new danhba(id.ToString(), nhap[0], nhap[1], nhap[2], nhap[3], nhap[4],nhap[5],0);
-            foreach (KeyValuePair<string, danhba> at in kiet)
+            if (at.Value.getsdt().Equals(tamthoi.getsdt()))
             {
-                if (at.Value.getnhan().Equals(tamthoi.getnhan()))
-                { 
-                    Console.Write("Tên đã bị trùng, vui lòng nhập tên mới: ");
-                    string tenmoi = Console.ReadLine();
-                    kiet.Add(id.ToString(),new danhba(id.ToString(),tenmoi, nhap[1],nhap[2], nhap[3],nhap[4],nhap[5],0));             
-                }
-                if (at.Value.getsdt().Equals(tamthoi.getsdt()))
-                { 
-                    Console.Write("SĐT đã bị trùng, vui lòng nhập SĐT mới: ");
-                    string sdtmoi = Console.ReadLine();
-                    kiet.Add(id.ToString(),new danhba(id.ToString(),nhap[0], sdtmoi , nhap[2], nhap[3], nhap[4], nhap[5],0));             
-                }
+                Console.Write("SĐT đã bị trùng, vui lòng nhập SĐT mới: ");
+                string sdtmoi = Console.ReadLine();
+                kiet.Add(id.ToString(), new danhba(id.ToString(), nhap[0], sdtmoi, nhap[2], nhap[3], nhap[4], nhap[5], 0));
+            }
             break;
-            }
-            kiet.Add(id.ToString(),tamthoi);
-        } 
+        }
+        kiet.Add(id.ToString(), tamthoi);
+    }
     // 17.. 4 Hàm tìm kiếm 
     static danhba vitri(int so, Dictionary<string, danhba> kiet)
     {
         int dem = 0;
-        foreach(KeyValuePair<string, danhba> ke in kiet)
+        foreach (KeyValuePair<string, danhba> ke in kiet)
         {
-           if ( dem == so)
+            if (dem == so)
             {
                 return ke.Value;
             }
-           else
+            else
             {
                 dem++;
             }
         }
-        return new danhba("", "", "", "", "", "", "",0);
-    }  
+        return new danhba("", "", "", "", "", "", "", 0);
+    }
     static danhba seqsearch(Dictionary<string, danhba> danhb, string nhan)
     {
         foreach (KeyValuePair<string, danhba> t in danhb)
@@ -512,7 +522,7 @@ class program
         {
             return new danhba("", "", "", "", "", "", "", 0);
         }
-        if( vitri(f,kiet).getid() == value || vitri(f,kiet).getnoio() == value || vitri(f,kiet).getnhan() == value || vitri(f,kiet).getsdt() == value )
+        if (vitri(f, kiet).getid() == value || vitri(f, kiet).getnoio() == value || vitri(f, kiet).getnhan() == value || vitri(f, kiet).getsdt() == value)
         {
             return vitri(f, kiet);
         }
@@ -524,18 +534,18 @@ class program
         danhba x = vitri(kiet.Count - 1, kiet);
         kiet[vitri(kiet.Count - 1, kiet).getid()] = kiet[value];
         int i = 0;
-        while (vitri(i,kiet).getid() != value) i++;
+        while (vitri(i, kiet).getid() != value) i++;
         kiet[x.getid()] = x;
-        if (vitri(kiet.Count - 1, kiet).getid() == value  || (i < kiet.Count - 1))
+        if (vitri(kiet.Count - 1, kiet).getid() == value || (i < kiet.Count - 1))
         {
-            return vitri(i,kiet);
+            return vitri(i, kiet);
         }
         else
         {
             return new danhba("", "", "", "", "", "", "", 0);
         }
     }
-    static danhba binsearch(Dictionary<string, danhba>hocsinh, string T)
+    static danhba binsearch(Dictionary<string, danhba> hocsinh, string T)
     {
         int m, L, R;
         L = 0;
@@ -545,7 +555,7 @@ class program
             m = (L + R) / 2;
             if (vitri(m, hocsinh).getid() == T)
             {
-                return vitri(m,hocsinh);
+                return vitri(m, hocsinh);
             }
             else if (Convert.ToInt32(vitri(m, hocsinh).getid()) < Convert.ToInt32(T))
             {
