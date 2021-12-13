@@ -209,7 +209,6 @@ class program
         Dictionary<string, danhba> Mobiphone = new Dictionary<string, danhba>();
         Dictionary<string, danhba> VNmobile = new Dictionary<string, danhba>();
         List<List<string>> mang = new List<List<string>>();
-<<<<<<< HEAD
         List<string> Vt = new List<string>();
         Vt.Add("086");Vt.Add("097");Vt.Add("098");Vt.Add("032");Vt.Add("033");Vt.Add("038");
         Vt.Add("096");Vt.Add("034");Vt.Add("035");Vt.Add("036");Vt.Add("037");Vt.Add("039");
@@ -246,29 +245,6 @@ class program
                         VNmobile.Add(t3.getid(), t3);
                         break;
                     }
-=======
-        List<string> Viettel = new List<string>();
-        Viettel.Add("086");Viettel.Add("097");Viettel.Add("098");Viettel.Add("032");Viettel.Add("033");Viettel.Add("038");
-        Viettel.Add("096");Viettel.Add("034");Viettel.Add("035");Viettel.Add("036");Viettel.Add("037");Viettel.Add("039");
-        mang.Add(Viettel);
-        List<string> Vinaphone = new List<string>();
-        Vinaphone.Add("088");Vinaphone.Add("091");Vinaphone.Add("094");Vinaphone.Add("081");
-        Vinaphone.Add("082");Vinaphone.Add("083");Vinaphone.Add("084");
-        mang.Add(Vinaphone);
-        List<string> Mobifone = new List<string>();
-        Mobifone.Add("089");Mobifone.Add("090");Mobifone.Add("093");Mobifone.Add("070");Mobifone.Add("076");
-        Mobifone.Add("077");Mobifone.Add("078");Mobifone.Add("079");
-        mang.Add(Mobifone);
-        List<string> Vietnamobile = new List<string>();
-        Vietnamobile.Add("092");Vietnamobile.Add("056");Vietnamobile.Add("058");
-        mang.Add(Vietnamobile);
-        string value2 = value.Substring(0,3);
-        string [] nhamang = {"Viettel", "Vinaphone","Mobifone","Vietnamobile"};
-        for(int i = 0; i < mang.Count; i++){
-            for(int j = 0; j < mang[i].Count;j++){
-                if(value2 == mang[i][j]){
-                    Console.WriteLine("Thuộc mạng {0}" , nhamang[i]);
->>>>>>> 4158ab26f5399dc1b4388f1545bd05ac228ce453
                 }
             }
         }
