@@ -20,7 +20,11 @@ class program
         danhb.Add("7", new danhba("7", "BTV", "0832561579", "vanbui22@gmail.com", "vanbui", "16/09/1999", "TP HCM", 50000));
         danhb.Add("8", new danhba("8", "SAH", "0947265337", "anhhung24680@gmail.com", "anhhungrom", "28/3/2007", "QB", 10000000));
         danhb.Add("9", new danhba("9", "DHY", "0867265347", "quynh04@gmail.com", "hoangyen", "29/04/1998", "TG", 1700000));
-        danhb.Add("10", new danhba("10", "TTH", "0927265367", "thanhhatang00@gmail.com", "tangthanhha", "13/08/2000", "TP HCM", 900000));   
+        danhb.Add("10", new danhba("10", "TTH", "0927265367", "thanhhatang00@gmail.com", "tangthanhha", "13/08/2000", "TP HCM", 900000)); 
+        Dictionary<string, danhba> danhba1 = new Dictionary<string,danhba>();
+        foreach(KeyValuePair<string,danhba> kie in danhb){
+            danhba1.Add(kie.Key,kie.Value);
+        }  
         Console.ForegroundColor = ConsoleColor.DarkYellow;
         Console.WriteLine("         ---DANH BẠ---");
         Console.WriteLine("      |GIAO DIỆN DANH BẠ|");
@@ -86,28 +90,20 @@ class program
                     case 3:
                         Doitt(danhb); break;
                     case 4:
-                        timvaiso( danhb ); break;
+                        timvaiso(danhb,danhba1); break;
                     case 5:
                         chan(ref danhb, ref danhsachchan); break;
                     case 6:
                         gochan(ref danhb, ref danhsachchan); break;
                     case 7:
-                        foreach (KeyValuePair<string, danhba> kt in danhb)
-                        {
-                            Console.Write("SĐT của {0} ", kt.Value.getnhan());
-                            Mangdt(kt.Value.getsdt());
-                        }
-                        break;
+                        Mangdt(danhb);break;
                     case 8:
-                        Console.WriteLine("Nhập SĐT hoặc Tên hoặc ID cần xóa: ");
-                        string dt = Console.ReadLine();
-                        xoa(danhb,dt);break;
+                        xoa(danhb);break;
                     case 9:
                         Console.WriteLine("Nhập dữ liệu người cần thêm: ");
-                        AddSDT(danhb);break;
+                        AddSDT(danhb,danhba1);break;
                 }
                 break;       
-           
             case 3:
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine(">> [TÀI KHOẢN] ");
@@ -147,30 +143,33 @@ class program
             danhba y = recusearch(kiet, 0, val);
             danhsach.Add((i + 1).ToString(), y);
         }
+        Console.WriteLine("Đã thêm vào danh sách quay số nhanh thành công!");
     }
     // 2.Tìm kiếm khách hàng trong khu vực tự nhập
     static void Timkiemdanhba(Dictionary<string, danhba> kiet)
     {
         int dem = 0;
-        Console.WriteLine("Nhập địa điểm cần tìm kiếm");
+        Console.Write("Nhập địa điểm cần tìm kiếm: ");
         string val = Console.ReadLine();
         Console.WriteLine("Danh bạ người ở khu vực {0} là: ", val);
-         foreach(KeyValuePair<string, danhba> kt in kiet){
-             if(kt.Value.getnoio() == val){
+         foreach(KeyValuePair<string, danhba> kt in kiet)
+         {
+             if(kt.Value.getnoio().ToLower() == val.ToLower())
+             {
                  Console.WriteLine(kt.Value);
-                 dem++;
-            }
+                 dem++; 
+             }
          }
          if(dem == 0) Console.WriteLine("Hiện tại không có khách hàng nào trong khu vực trên.");
     }
     // 3. Đổi thông tin trong danh bạ
     static void Doitt(Dictionary<string,danhba> kiet)
     {
-        System.Console.WriteLine("Nhập số điện thoại cần đổi thông tin: ");
+        System.Console.Write("Nhập số điện thoại cần đổi thông tin: ");
         string value = Console.ReadLine();
         danhba kt = recusearch(kiet,0,value);
         System.Console.WriteLine("Thông tin ban đầu của {0} là {1}" ,value,kt.ToString());
-        System.Console.WriteLine("Chọn thông tin cần chỉnh sửa: Tên(2); Email(4); Facebook(5); Ngày sinh(6); Nơi ở(7)");
+        System.Console.Write("Chọn thông tin cần chỉnh sửa: Tên(2); Email(4); Facebook(5); Ngày sinh(6); Nơi ở(7): ");
         int x = int.Parse(Console.ReadLine());
                 switch(x){                  
                     case 2:
@@ -199,7 +198,7 @@ class program
                     kiet[kt.getid()] = new danhba(kt.getid(), kt.getnhan(),kt.getsdt(),kt.getemail(),kt.getfb(), kt.getsinhnhat(), val7, kt.gettaikhoan());
                     break;
                 }
-         System.Console.WriteLine("Thông tin mới là: " + kiet[kt.getid()].ToString());  
+        System.Console.WriteLine("Thông tin mới là: " + kiet[kt.getid()].ToString());  
     }
     // 4. Xác định mạng di động đang sử dụng
     static void Mangdt(Dictionary < string, danhba> kiet)
@@ -268,7 +267,7 @@ class program
         Console.WriteLine("Phần thưởng của bạn là một phần quà trị giá 100 triệu VND. Để có thể trao giải, chúng tôi cần bạn xác nhận thông tin của mình.");
         Console.WriteLine(g);
         Console.WriteLine("=========================================================");
-        Console.WriteLine("Bạn hãy xác nhận những thông tin trên. Nếu đúng nhập (dung), nếu sai nhập phím bất kỳ");
+        Console.Write("Bạn hãy xác nhận những thông tin trên. Nếu đúng nhập (dung), nếu sai nhập phím bất kỳ: ");
         string nhap = Console.ReadLine();
         if (nhap.ToLower() == "dung")
         {
@@ -297,10 +296,9 @@ class program
             Console.WriteLine(" =======================================================");
             Console.WriteLine("Cảm ơn bạn đã tham gia chương trình của chúng tôi!");
         }
-
     }
     // 6. Tìm số điện thoại dựa theo số đầu
-    static void timvaiso(Dictionary<string, danhba> kiet)
+    static void timvaiso(Dictionary<string, danhba> kiet, Dictionary<string, danhba> kiet1)
     {
         Console.Write("Nhập vài số đầu của số điện thoại: ");
         string so = Console.ReadLine();
@@ -315,12 +313,12 @@ class program
             }
         }
         if(dem1 == 0){
-            Console.WriteLine("Không có người muốn tìm trong danh sách. Bạn có muốn thêm số liên lạc vào danh bạ không? Nếu muốn hãy nhấn (1), không muốn nhấn (0)");
+            Console.Write("Không có người muốn tìm trong danh sách. Bạn có muốn thêm số liên lạc vào danh bạ không? Nếu muốn hãy nhấn (1), không muốn nhấn (0)");
             int chon = int.Parse(Console.ReadLine());
             if (chon == 1)
             {
                 Console.WriteLine("Nhập dữ liệu người cần thêm");
-                AddSDT(kiet);
+                AddSDT(kiet,kiet1);
             }
             else  Console.WriteLine("Cảm ơn bạn đã sử dụng ");   
         }
@@ -341,7 +339,6 @@ class program
             Console.Write(" Người {0} bạn muốn chặn: ", i + 1);
             y[i] = int.Parse(Console.ReadLine());
             danhba v = sensearch(kiet,y[i].ToString());
-            Console.WriteLine(v.ToString());
             danhsachchan.Add(v.getid(), v);
             tam2.Add(v.getid(),v);
         }
@@ -356,15 +353,12 @@ class program
     {
         for (int i = 0; i < danhsachchan.Count; i++)
         {
-            Console.WriteLine("Người {0}: {1}, Nhập ({2})", i + 1, vitri(i, danhsachchan).getnhan(),vitri(i, danhsachchan).getid() );
+            Console.WriteLine("Người {0}: {1}, Nhập ({2})", i + 1, vitri(i, danhsachchan).getnhan(),vitri(i, danhsachchan).getid());
         }
         Console.Write("Bạn muốn gỡ chặn bao nhiêu người?: ");
         int nguoi1 = int.Parse(Console.ReadLine());
         int[] y1 = new int[nguoi1];
-        Dictionary<string, danhba> tam = new Dictionary<string,danhba>();
-         foreach (KeyValuePair<string, danhba> kt in danhsachchan){
-            Console.Write(kt.Key + " ");
-        }     
+        Dictionary<string, danhba> tam = new Dictionary<string, danhba>();
         for(int i = 0; i < nguoi1; i++)
         {
             Console.Write(" Người {0} bạn muốn gỡ chặn: ", i+1);
@@ -381,12 +375,12 @@ class program
     }
     // 9. In ra các mục trong danh bạ
     static void inradanhba(Dictionary<string, danhba> kiet, Dictionary<string, danhba> kiet1, Dictionary<string, danhba> kiet2)
-    {
-        Console.WriteLine("Lựa chọn danh bạ bạn  cần in: ");
+    { 
         Console.WriteLine("DANH BẠ (1)");
         Console.WriteLine("DANH SÁCH CHẶN (2)");       
         Console.WriteLine("DANH SÁCH QUAY SỐ NHANH (3)");
         Console.WriteLine("TÀI KHOẢN DANH BẠ (4)");
+        Console.Write("Lựa chọn danh bạ bạn cần in: ");
         int tu = int.Parse(Console.ReadLine());
         switch (tu)
         {
@@ -445,26 +439,33 @@ class program
     // 11. Nạp tiền vào sđt
     static void Naptien(ref Dictionary<string,danhba> kiet, ref Dictionary<string, string> lichsuchuyentien, ref Dictionary<string, string> lichsunaptien)
     {
-        Console.WriteLine("SĐT của bạn là: ");
+        Console.Write("SĐT của bạn là: ");
         string so = Console.ReadLine();
+        Console.WriteLine("");
         danhba k = seqsearch(kiet,so);
-        Console.WriteLine("Bạn muốn nạp tiền hay nạp chuyển tiền từ tài khoản : Nạp tiền (1) ; Chuyển tiền (2)");
+        Console.Write("Bạn muốn nạp tiền hay nạp chuyển tiền từ tài khoản : Nạp tiền (1) ; Chuyển tiền (2): ");
         int x = int.Parse(Console.ReadLine());
         if(x == 1){
-            Console.WriteLine("Nhập số tiền bạn cần nạp là: ");
+            Console.Write("Nhập số tiền bạn cần nạp là: ");
             int tien = int.Parse(Console.ReadLine());
             danhba qu = new danhba(k.getid(), k.getnhan(), k.getsdt(), k.getemail(), k.getfb(), k.getsinhnhat(),k.getnoio(), k.gettaikhoan() + tien);
             kiet.Remove(k.getid());
             kiet.Add(k.getid(),qu);
             Console.WriteLine("Nạp tiền thành công!");
             Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi được nạp." , so, qu.gettaikhoan());
-            lichsunaptien[(lichsunaptien.Count + 1).ToString()] = qu.getnhan() + "vừa nạp" +" "+tien.ToString() +" "+ "vào tài khoản của họ";
+            lichsunaptien[(lichsunaptien.Count + 1).ToString()] = qu.getnhan() + " vừa nạp " + tien.ToString() + " vào tài khoản của họ";
         }
         else{
-            Console.WriteLine("Số điện thoại bạn muốn chuyển tới là: ");
+            Console.Write("Số điện thoại bạn muốn chuyển tới là: ");
             string sodt = Console.ReadLine();
-            Console.WriteLine("Nhập số tiền bạn cần nạp là: ");
+            kiet:
+            Console.Write("Nhập số tiền bạn cần chuyển là: ");
             int tien1 = int.Parse(Console.ReadLine());
+            if(tien1 > k.gettaikhoan())
+            {
+                Console.WriteLine("Số tiền trong tài khoản của bạn không đủ để chuyển, vui lòng nhập lại!");
+                goto kiet;
+            }
             danhba h = seqsearch(kiet, sodt);
             danhba q = new danhba(k.getid(), k.getnhan(), k.getsdt(), k.getemail(), k.getfb(), k.getsinhnhat(),k.getnoio(), k.gettaikhoan() - tien1);
             kiet.Remove(k.getid());
@@ -474,8 +475,8 @@ class program
             kiet.Add(h.getid(),j);
             Console.WriteLine("Chuyển tiền thành công!");
             Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi chuyển tiền." , so, q.gettaikhoan());
-            Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi được nạp." , sodt, j.gettaikhoan());
-            lichsuchuyentien[(lichsuchuyentien.Count + 1).ToString()] = q.getnhan() + "chuyển" + " " +  tien1.ToString()+" "+"cho"+" "+  j.getnhan();
+            Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi được chuyển." , sodt, j.gettaikhoan());
+            lichsuchuyentien[(lichsuchuyentien.Count + 1).ToString()] = q.getnhan() + " chuyển " + tien1.ToString() + " cho "+  j.getnhan();
             
         }
     }
@@ -540,26 +541,27 @@ class program
         }
     }
     //15.Xóa
-    static void xoa(Dictionary<string, danhba> kiet, string sdt){
-        danhba sotim = seqsearch(kiet, sdt);
+    static void xoa(Dictionary<string, danhba> kiet){
+        Console.WriteLine("Nhập SĐT hoặc Tên hoặc ID cần xóa: ");
+        string dt = Console.ReadLine();
+        danhba sotim = seqsearch(kiet, dt);
         Console.WriteLine("Bạn đã xóa thành công {0} ", sotim.getnhan());
         kiet.Remove(sotim.getid());       
     }
     //16. Add
-     static void AddSDT(Dictionary<string, danhba> kiet)
-        {
-            string [] label = {"tên","SĐT","Email","FB","Ngày sinh","Nơi ở"};
-            List<string> nhap = new List<string>();
-            for (int i = 0; i < label.Length; i++)
+    static void AddSDT(Dictionary<string, danhba> kiet, Dictionary<string, danhba> kiet1)
+    {
+        string [] label = {"tên","SĐT","Email","FB","Ngày sinh","Nơi ở"};
+        List<string> nhap = new List<string>();
+        for (int i = 0; i < label.Length; i++)
             {
                 Console.Write("Nhập {0}: ", label[i]);
                 nhap.Add(Console.ReadLine());
             }
-            int id = soluong(kiet) + 1;
-            danhba tamthoi = new danhba(id.ToString(), nhap[0], nhap[1], nhap[2], nhap[3], nhap[4],nhap[5],0);
-       
-        foreach (KeyValuePair<string, danhba> at in kiet)
-            { 
+        int id = soluong(kiet1) + 1;
+        danhba tamthoi = new danhba(id.ToString(), nhap[0], nhap[1], nhap[2], nhap[3], nhap[4],nhap[5],0);   
+        foreach (KeyValuePair<string, danhba> at in kiet1)
+        { 
             while (at.Value.getnhan().Equals(tamthoi.getnhan()) || at.Value.getsdt().Equals(tamthoi.getsdt())) 
             {
                 if(at.Value.getnhan().Equals(tamthoi.getnhan())){
@@ -575,9 +577,10 @@ class program
                     tamthoi = new danhba(id.ToString(), tenmemmoi, sdtmoi, nhap[2], nhap[3], nhap[4],nhap[5],0);
                 }  
             }
-            }
-            kiet.Add(id.ToString(),tamthoi);
         }
+        kiet.Add(id.ToString(),tamthoi);
+        Console.WriteLine("Đã thêm thành công!!!");
+    }
     // 17. lịch sử
     static void lichsuchuyennap(Dictionary<string, string> lichsuchuyentien, Dictionary<string,string> lichsunaptien)
     {
@@ -637,7 +640,7 @@ class program
         {
             return new danhba("", "", "", "", "", "", "", 0);
         }
-        if( vitri(f,kiet).getid() == value || vitri(f,kiet).getnoio() == value || vitri(f,kiet).getnhan() == value || vitri(f,kiet).getsdt() == value )
+        if( vitri(f,kiet).getid() == value || vitri(f,kiet).getnoio() == value || vitri(f,kiet).getnhan() == value || vitri(f,kiet).getsdt() == value)
         {
             return vitri(f, kiet);
         }
