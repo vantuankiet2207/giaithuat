@@ -202,9 +202,51 @@ class program
          System.Console.WriteLine("Thông tin mới là: " + kiet[kt.getid()].ToString());  
     }
     // 4. Xác định mạng di động đang sử dụng
-    static void Mangdt(string value)
+    static void Mangdt(Dictionary < string, danhba> kiet)
     {
+        Dictionary<string, danhba> Viettel = new Dictionary<string, danhba>();
+        Dictionary<string, danhba> Vinaphone = new Dictionary<string, danhba>();
+        Dictionary<string, danhba> Mobiphone = new Dictionary<string, danhba>();
+        Dictionary<string, danhba> VNmobile = new Dictionary<string, danhba>();
         List<List<string>> mang = new List<List<string>>();
+<<<<<<< HEAD
+        List<string> Vt = new List<string>();
+        Vt.Add("086");Vt.Add("097");Vt.Add("098");Vt.Add("032");Vt.Add("033");Vt.Add("038");
+        Vt.Add("096");Vt.Add("034");Vt.Add("035");Vt.Add("036");Vt.Add("037");Vt.Add("039");
+        mang.Add(Vt);
+        List<string> Vnp = new List<string>();
+        Vnp.Add("088");Vnp.Add("091");Vnp.Add("094");Vnp.Add("081");
+        Vnp.Add("082");Vnp.Add("083");Vnp.Add("084");
+        mang.Add(Vnp);
+        List<string> Mb = new List<string>();
+        Mb.Add("089");Mb.Add("090");Mb.Add("093");Mb.Add("070");Mb.Add("076");
+        Mb.Add("077");Mb.Add("078");Mb.Add("079");
+        mang.Add(Mb);
+        List<string> Vnm = new List<string>();
+        Vnm.Add("092");Vnm.Add("056");Vnm.Add("058");
+        mang.Add(Vnm);
+        string [] nhamang = {"Viettel", "Vinaphone","Mobiphone","Vietnamobile"};
+        foreach(KeyValuePair<string,danhba> kiem in kiet){
+            string value = kiem.Value.getsdt();
+        string value2 = value.Substring(0,3);
+        for(int i = 0; i < mang.Count; i++){
+            for(int j = 0; j < mang[i].Count;j++){
+                if(value2 == mang[i][j]){
+                    switch(nhamang[i]){
+                        case "Viettel" : danhba t = seqsearch(kiet, value);
+                        Viettel.Add(t.getid(), t);
+                        break;
+                        case "Vinaphone" :danhba t1 = seqsearch(kiet, value);
+                        Vinaphone.Add(t1.getid(), t1);
+                        break;
+                        case "Mobiphone" :danhba t2 = seqsearch(kiet, value);
+                        Mobiphone.Add(t2.getid(), t2);
+                        break;
+                        case "Vietnamobile":danhba t3 = seqsearch(kiet, value);
+                        VNmobile.Add(t3.getid(), t3);
+                        break;
+                    }
+=======
         List<string> Viettel = new List<string>();
         Viettel.Add("086");Viettel.Add("097");Viettel.Add("098");Viettel.Add("032");Viettel.Add("033");Viettel.Add("038");
         Viettel.Add("096");Viettel.Add("034");Viettel.Add("035");Viettel.Add("036");Viettel.Add("037");Viettel.Add("039");
@@ -226,7 +268,17 @@ class program
             for(int j = 0; j < mang[i].Count;j++){
                 if(value2 == mang[i][j]){
                     Console.WriteLine("Thuộc mạng {0}" , nhamang[i]);
+>>>>>>> 4158ab26f5399dc1b4388f1545bd05ac228ce453
                 }
+            }
+        }
+        }
+        List<Dictionary<string, danhba>> man = new List<Dictionary<string, danhba>>();
+        man.Add(Viettel);man.Add(Vinaphone);man.Add(Mobiphone);man.Add(VNmobile);
+        for(int i = 0; i < man.Count; i++){
+            Console.WriteLine("Các số thuộc nhà mạng {0} là: ", nhamang[i]);
+            foreach(KeyValuePair<string, danhba> kt in man[i]){
+                Console.WriteLine(kt.Value);
             }
         }
     }
