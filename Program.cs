@@ -568,14 +568,13 @@ class program
                     Console.Write("Tên đã bị trùng, vui lòng nhập tên mới: ");
                     string tenmoi = Console.ReadLine();
                     tamthoi = new danhba(id.ToString(), tenmoi, nhap[1], nhap[2], nhap[3], nhap[4], nhap[5], 0);
-                  }
                 if(at.Value.getsdt().Equals(tamthoi.getsdt()))
                 {
                     Console.Write("SĐT đã bị trùng, vui lòng nhập SĐT mới: ");
                     string sdtmoi = Console.ReadLine();
                     string tenmemmoi = tamthoi.getnhan();
                     tamthoi = new danhba(id.ToString(), tenmemmoi, sdtmoi, nhap[2], nhap[3], nhap[4],nhap[5],0);
-                }  
+                }}
             }
         }
         kiet.Add(id.ToString(),tamthoi);
