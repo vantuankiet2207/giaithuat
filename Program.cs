@@ -107,7 +107,7 @@ class program
             case 3:
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine(">> [TÀI KHOẢN] ");
-                Console.WriteLine("> Gửi OTP (1)");
+                Console.WriteLine("> Vấn tin tài khoản (1)");
                 Console.WriteLine("> Chuyển tiền và nạp tiền (2)");
                 Console.WriteLine("> Lịch sử chuyển tiền và nạp tiền (3)");
                 Console.ForegroundColor = ConsoleColor.White;
@@ -116,12 +116,13 @@ class program
                 switch (nhap3)
                 {
                     case 1:
-                        otp(danhb); 
-                        break;                       
+                        danhba k = new danhba("","","","","","","",0);
+                        Intaikhoan(danhb,ref k);break;                     
                     case 2:
                         Naptien(ref danhb, ref lichsuchuyentien, ref lichsunaptien); break;    
                     case 3:
                         lichsuchuyennap(lichsuchuyentien, lichsunaptien);break;
+                    
                 }
                 break;
             case 4:
@@ -436,13 +437,17 @@ class program
             dem++;
         return dem;
     }
+    static void Intaikhoan(Dictionary<string,danhba> kiet, ref danhba k){
+        Console.Write("SĐT của bạn là: ");
+        string so = Console.ReadLine();
+         k = seqsearch(kiet,so);
+        Console.WriteLine("Số tiền hiện có trong tài khoản của bạn là : {0} đồng", k.gettaikhoan());
+    }
     // 11. Nạp tiền vào sđt
     static void Naptien(ref Dictionary<string,danhba> kiet, ref Dictionary<string, string> lichsuchuyentien, ref Dictionary<string, string> lichsunaptien)
     {
-        Console.Write("SĐT của bạn là: ");
-        string so = Console.ReadLine();
-        Console.WriteLine("");
-        danhba k = seqsearch(kiet,so);
+        danhba k = new danhba("","","","","","","",0);
+        Intaikhoan(kiet, ref k);
         Console.Write("Bạn muốn nạp tiền hay nạp chuyển tiền từ tài khoản : Nạp tiền (1) ; Chuyển tiền (2): ");
         int x = int.Parse(Console.ReadLine());
         if(x == 1){
@@ -452,7 +457,7 @@ class program
             kiet.Remove(k.getid());
             kiet.Add(k.getid(),qu);
             Console.WriteLine("Nạp tiền thành công!");
-            Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi được nạp." , so, qu.gettaikhoan());
+            Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi được nạp." , k.getsdt(), qu.gettaikhoan());
             lichsunaptien[(lichsunaptien.Count + 1).ToString()] = qu.getnhan() + " vừa nạp " + tien.ToString() + " vào tài khoản của họ";
         }
         else{
@@ -466,6 +471,12 @@ class program
                 Console.WriteLine("Số tiền trong tài khoản của bạn không đủ để chuyển, vui lòng nhập lại!");
                 goto kiet;
             }
+            otp:
+            string otp1 = otp(kiet,sodt);
+            Console.WriteLine("Mã OTP xác minh của bạn là : {0} ", otp1);
+            Console.Write("Vui lòng điền mã OTP để xác nhận chuyển tiền: ");
+            string otp2 = Console.ReadLine();
+            if(otp1 == otp2){
             danhba h = seqsearch(kiet, sodt);
             danhba q = new danhba(k.getid(), k.getnhan(), k.getsdt(), k.getemail(), k.getfb(), k.getsinhnhat(),k.getnoio(), k.gettaikhoan() - tien1);
             kiet.Remove(k.getid());
@@ -474,10 +485,14 @@ class program
             kiet.Remove(h.getid());
             kiet.Add(h.getid(),j);
             Console.WriteLine("Chuyển tiền thành công!");
-            Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi chuyển tiền." , so, q.gettaikhoan());
+            Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi chuyển tiền." , k.getsdt(), q.gettaikhoan());
             Console.WriteLine("Tài khoản {0} hiện có {1} đồng sau khi được chuyển." , sodt, j.gettaikhoan());
             lichsuchuyentien[(lichsuchuyentien.Count + 1).ToString()] = q.getnhan() + " chuyển " + tien1.ToString() + " cho "+  j.getnhan();
-            
+            }
+            else
+            { Console.WriteLine("Bạn đã nhập sai mã OTP. Vui lòng thử lại.");
+            goto otp;
+            }
         }
     }
     //12. Chúc mừng sinh nhật
@@ -514,31 +529,16 @@ class program
         Console.WriteLine("KHÔNG CÓ QUÝ KHÁCH SINH THÁNG {0}.",thang);
     }
     //13. Mã OTP
-    static void otp(Dictionary<string, danhba> hien)
+    static string otp(Dictionary<string, danhba> hien, string sdt)
     {
-    hien1:  
-        Console.Write("Nhập SĐT: ");
-        string sdt = Console.ReadLine();
-        string otp = ""; int dem = 0;
+        string otp1 = ""; 
         Random kiet = new Random();
         for (int i = 0; i < 6; i++)
         {
             int t = kiet.Next(0, 9);
-            otp += t.ToString();
+            otp1 += t.ToString();
         }
-        for (int i = 0; i < soluong(hien); i++)
-        {
-            if (vitri(i, hien).getsdt() == sdt)
-            {
-                Console.WriteLine("Mã OTP của quý khách là {0} , vui lòng không cung cấp OTP cho bất cứ ai ! ",otp);
-                dem ++;
-            }
-        }
-        if(dem == 0)
-        {
-            Console.WriteLine("Số điện thoại bạn nhập hiện không tồn tại trong danh bạ. Xin vui lòng nhập lại.");
-            goto hien1;
-        }
+        return otp1;
     }
     //15.Xóa
     static void xoa(Dictionary<string, danhba> kiet){
@@ -564,18 +564,25 @@ class program
         { 
             while (at.Value.getnhan().Equals(tamthoi.getnhan()) || at.Value.getsdt().Equals(tamthoi.getsdt())) 
             {
-                if(at.Value.getnhan().Equals(tamthoi.getnhan())){
+                foreach(KeyValuePair<string, danhba> kt in kiet1)
+             {
+                if(kt.Value.getnhan().Equals(tamthoi.getnhan()))
+                {
                     Console.Write("Tên đã bị trùng, vui lòng nhập tên mới: ");
                     string tenmoi = Console.ReadLine();
-                    tamthoi = new danhba(id.ToString(), tenmoi, nhap[1], nhap[2], nhap[3], nhap[4], nhap[5], 0);
-                  }
-                if(at.Value.getsdt().Equals(tamthoi.getsdt()))
+                        string tenmoi2 = tenmoi;
+                    tamthoi = new danhba(id.ToString(), tenmoi, nhap[1], nhap[2], nhap[3], nhap[4], nhap[5], 0);          
+                        
+                }
+                if(kt.Value.getsdt().Equals(tamthoi.getsdt()))
                 {
                     Console.Write("SĐT đã bị trùng, vui lòng nhập SĐT mới: ");
                     string sdtmoi = Console.ReadLine();
                     string tenmemmoi = tamthoi.getnhan();
                     tamthoi = new danhba(id.ToString(), tenmemmoi, sdtmoi, nhap[2], nhap[3], nhap[4],nhap[5],0);
-                }  
+                        
+                }
+             }  
             }
         }
         kiet.Add(id.ToString(),tamthoi);
