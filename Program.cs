@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 class program
 {
@@ -39,6 +39,8 @@ class program
         Console.WriteLine(">> [TÀI KHOẢN] (3)");
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(">> [IN RA DANH BẠ] (4)"); 
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        System.Console.WriteLine(">> [THOÁT] (5)");
         Console.ForegroundColor = ConsoleColor.White;        
         Console.WriteLine("=================================");
         Console.Write("Chọn giao diện bạn muốn thực hiện: ");
@@ -122,12 +124,14 @@ class program
                         Naptien(ref danhb, ref lichsuchuyentien, ref lichsunaptien); break;    
                     case 3:
                         lichsuchuyennap(lichsuchuyentien, lichsunaptien);break;
-                    
+                    default: System.Console.WriteLine("Bạn đã nhập sai số");break;
                 }
                 break;
             case 4:
                 Console.WriteLine(">> [IN RA DANH BẠ] ");
                 inradanhba(danhb, danhsachchan, danhsach); break;
+            case 5: System.Console.WriteLine("Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi"); break;
+            default: System.Console.WriteLine("Bạn đã nhập sai số");break;
         }
         goto tim;
     }
@@ -321,7 +325,7 @@ class program
                 Console.WriteLine("Nhập dữ liệu người cần thêm");
                 AddSDT(kiet,kiet1);
             }
-            else  Console.WriteLine("Cảm ơn bạn đã sử dụng ");   
+            else  Console.WriteLine("Cảm ơn bạn đã sử dụng dịch vụ.");   
         }
     }
     //7. Danh sách chặn
@@ -471,9 +475,9 @@ class program
                 Console.WriteLine("Số tiền trong tài khoản của bạn không đủ để chuyển, vui lòng nhập lại!");
                 goto kiet;
             }
-            otp:
+            here:
             string otp1 = otp(kiet,sodt);
-            Console.WriteLine("Mã OTP xác minh của bạn là : {0} ", otp1);
+            Console.WriteLine("Mã OTP xác minh của bạn là : {0}, vui lòng không chia sẻ mã với bất kỳ ai khác. ", otp1);
             Console.Write("Vui lòng điền mã OTP để xác nhận chuyển tiền: ");
             string otp2 = Console.ReadLine();
             if(otp1 == otp2){
@@ -491,7 +495,7 @@ class program
             }
             else
             { Console.WriteLine("Bạn đã nhập sai mã OTP. Vui lòng thử lại.");
-            goto otp;
+            goto here;
             }
         }
     }
