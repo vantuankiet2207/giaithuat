@@ -66,6 +66,7 @@ class program
                         Console.Write("Nhập tháng: ");
                         int thang = int.Parse(Console.ReadLine());
                         hpbd(danhb, thang); break;
+                    default: System.Console.WriteLine("Bạn đã nhập sai số"); break;
                 }
                 break;
             case 2:
@@ -104,6 +105,7 @@ class program
                     case 9:
                         Console.WriteLine("Nhập dữ liệu người cần thêm: ");
                         AddSDT(danhb,danhba1);break;
+                    default: System.Console.WriteLine("Bạn đã nhập sai số"); break;
                 }
                 break;       
             case 3:
@@ -475,7 +477,7 @@ class program
                 Console.WriteLine("Số tiền trong tài khoản của bạn không đủ để chuyển, vui lòng nhập lại!");
                 goto kiet;
             }
-            here:
+            otp:
             string otp1 = otp(kiet,sodt);
             Console.WriteLine("Mã OTP xác minh của bạn là : {0}, vui lòng không chia sẻ mã với bất kỳ ai khác. ", otp1);
             Console.Write("Vui lòng điền mã OTP để xác nhận chuyển tiền: ");
@@ -495,7 +497,7 @@ class program
             }
             else
             { Console.WriteLine("Bạn đã nhập sai mã OTP. Vui lòng thử lại.");
-            goto here;
+            goto otp;
             }
         }
     }
